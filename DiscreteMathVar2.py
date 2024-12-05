@@ -14,7 +14,6 @@ def generate_power_set(s):
 
     return power_set
 
-    #Проверки на соотвествие элементов основным числовым множествам
      
 def is_natural(n):
     """Проверка на натуральное число."""
@@ -45,27 +44,39 @@ def is_fraction(n):
     return '/' in n
 
 def main():
-    INPUT_PROMPT = "Введите элементы множества через запятую: "
-    input_set = input(INPUT_PROMPT).split(",")
+    INPUT_PROMPT_NUM = "Введите количество элементов множества: "
+    INPUT_PROMPT_ELEMENTS = "Введите элементы множества через запятую: "
+    
+    while True:
+        num_elements = input(INPUT_PROMPT_NUM).strip()
+        if num_elements.isdigit() and int(num_elements) > 0:
+            num_elements = int(num_elements)
+            break
+        else:
+            print("Пожалуйста, введите натуральное число.")
+
+    input_set = input(INPUT_PROMPT_ELEMENTS).split(",")
+    
     input_set = [item.strip() for item in input_set]
 
-    #Проверка допустимости разных элементов
+    input_set = [item for item in input_set if item]
+
+
     valid_set = []
     invalid_elements = []
 
     for item in input_set:
         if is_natural(item):
-            valid_set.append(int(item))
+            valid_set.append(int(item)) 
         elif is_integer(item):
             valid_set.append(int(item))
-        elif is_float(item):
             valid_set.append(float(item))
         elif is_complex(item):
-            valid_set.append(complex(item.replace('i', 'j')))
+            valid_set.append(complex(item.replace('i', 'j'))) 
         elif is_fraction(item):
-            valid_set.append(item)
+            valid_set.append(item)  
         else:
-            invalid_elements.append(item)
+            invalid_elements.append(item) 
 
     if invalid_elements:
         print("Вы ввели недопустимые элементы:", invalid_elements)
