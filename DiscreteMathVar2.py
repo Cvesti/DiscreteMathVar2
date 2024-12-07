@@ -1,20 +1,15 @@
 def generate_power_set(s):
-
     """Генерация булеана (всех подмножеств) заданного множества."""
-
     power_set = []
     n = len(s)
-
     for i in range(2 ** n):
         subset = []
         for j in range(n):
             if (i & (1 << j)):
                 subset.append(s[j])
         power_set.append(subset)
-
     return power_set
 
-     
 def is_natural(n):
     """Проверка на натуральное число."""
     return n.isdigit() and int(n) > 0
@@ -56,11 +51,11 @@ def main():
             print("Пожалуйста, введите натуральное число.")
 
     input_set = input(INPUT_PROMPT_ELEMENTS).split(",")
-    
-    input_set = [item.strip() for item in input_set]
+    input_set = [item.strip() for item in input_set if item]
 
-    input_set = [item for item in input_set if item]
-
+    if len(input_set) != num_elements:
+        print(f"Ошибка: вы ввели {len(input_set)} элемента(ов), но указали {num_elements}. Пожалуйста, попробуйте снова.")
+        return
 
     valid_set = []
     invalid_elements = []
